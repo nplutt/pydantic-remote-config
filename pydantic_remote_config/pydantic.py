@@ -1,11 +1,14 @@
+import json
+from typing import TYPE_CHECKING, Any, Dict, Optional
+
+from jinja2 import Template
 from pydantic import BaseSettings
 from pydantic.env_settings import env_file_sentinel
 from pydantic.fields import ModelField
 from pydantic.typing import StrPath
-from typing import Any, Dict, Optional, TYPE_CHECKING
-from jinja2 import Template
+
 from pydantic_remote_config.enum.service_name_enum import ServiceName
-import json
+
 
 if TYPE_CHECKING:
     Base = Any
@@ -55,7 +58,6 @@ class RemoteSetting(Base):
 
 
 class RemoteSettings(BaseSettings):
-
     def __init__(
         __pydantic_self__,
         _env_file: Optional[StrPath] = env_file_sentinel,

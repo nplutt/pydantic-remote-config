@@ -16,7 +16,7 @@ def fetch_boto3_client(service_name: str, region_name: str):
         from botocore.config import Config
     except ImportError as e:
         raise ImportError(
-            'boto3 is not installed run `pip install pydantic-remote-config[aws]',
+            "boto3 is not installed run `pip install pydantic-remote-config[aws]",
         ) from e
 
     config = Config(
@@ -39,7 +39,7 @@ def load_current_region_name() -> str:
         import boto3
     except ImportError as e:
         raise ImportError(
-            'boto3 is not installed run `pip install pydantic-remote-config[aws]',
+            "boto3 is not installed run `pip install pydantic-remote-config[aws]",
         ) from e
 
     session = boto3.session.Session()

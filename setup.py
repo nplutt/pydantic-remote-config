@@ -26,6 +26,6 @@ setup(
     extras_require={
         "aws": ["boto3"],
         "test": ["pytest", "pytest-cov"],
-        "dev": ["black", "isort"],
+        "dev": ["black", "isort", "tox"],
     },
 )
