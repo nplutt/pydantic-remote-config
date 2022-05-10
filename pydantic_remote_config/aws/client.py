@@ -1,10 +1,7 @@
-from typing import Optional
-
-
 CLIENT_CACHE = {}
 
 
-def fetch_boto3_client(service_name: str, region_name: Optional[str] = None):
+def fetch_boto3_client(service_name: str, region_name: str):
     """
     Takes a service name & region and returns a boto3 client for
     the given service.
@@ -34,7 +31,7 @@ def fetch_boto3_client(service_name: str, region_name: Optional[str] = None):
     return client
 
 
-def _load_current_region_name() -> str:
+def load_current_region_name() -> str:
     """
     Uses boto3 to load the current region set in the aws cli config
     """

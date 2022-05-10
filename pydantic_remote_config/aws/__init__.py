@@ -1,11 +1,7 @@
-from pydantic_remote_config.aws.ssm import (
-    DictSSMParam,
-    IntSSMParam,
-    StrSSMParam,
-)
+from pydantic_remote_config.aws.ssm import SSMParam
+from pydantic_remote_config.aws.secrets_manager import SecretsManager
 
 __all__ = [
-    'DictSSMParam',
-    'IntSSMParam',
-    'StrSSMParam',
+    'SSMParam',
+    'SecretsManager',
 ]
