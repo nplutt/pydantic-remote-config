@@ -1,6 +1,6 @@
 from enum import Enum
 
 
-class ServiceName(Enum):
+class VendorName(Enum):
     AWS = "AWS"
     HASHICORP = "HASHICORP"

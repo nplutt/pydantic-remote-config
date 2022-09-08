@@ -1,16 +1,12 @@
-CLIENT_CACHE = {}
+from functools import lru_cache
 
 
+@lru_cache
 def fetch_boto3_client(service_name: str, region_name: str):
     """
     Takes a service name & region and returns a boto3 client for
     the given service.
     """
-    cache_key = f"{region_name}-{service_name}"
-
-    if CLIENT_CACHE.get(cache_key):
-        return CLIENT_CACHE[cache_key]
-
     try:
         import boto3
         from botocore.config import Config
@@ -24,13 +20,10 @@ def fetch_boto3_client(service_name: str, region_name: str):
         signature_version="v4",
         retries={"max_attempts": 10, "mode": "standard"},
     )
-    client = boto3.client(service_name, config=config)
-
-    CLIENT_CACHE[cache_key] = client
-
-    return client
+    return boto3.client(service_name, config=config)
 
 
+@lru_cache
 def load_current_region_name() -> str:
     """
     Uses boto3 to load the current region set in the aws cli config

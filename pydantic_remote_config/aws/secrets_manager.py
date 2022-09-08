@@ -6,8 +6,8 @@ from pydantic_remote_config.aws.client import (
     fetch_boto3_client,
     load_current_region_name,
 )
-from pydantic_remote_config.aws.exceptions import AWSError
-from pydantic_remote_config.enum.service_name_enum import ServiceName
+from pydantic_remote_config.exceptions import AWSError
+from pydantic_remote_config.enum.VendorName import VendorName
 from pydantic_remote_config.pydantic import RemoteSetting
 
 
@@ -29,5 +29,5 @@ class SecretsManager(RemoteSetting):
         self.set_value(param["SecretString"])
 
     @property
-    def service_name(self) -> ServiceName:
-        return ServiceName.AWS
+    def vendor_name(self) -> VendorName:
+        return VendorName.AWS

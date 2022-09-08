@@ -7,8 +7,7 @@ from pydantic.env_settings import env_file_sentinel
 from pydantic.fields import ModelField
 from pydantic.typing import StrPath
 
-from pydantic_remote_config.enum.service_name_enum import ServiceName
-
+from pydantic_remote_config.enum.VendorName import VendorName
 
 if TYPE_CHECKING:
     Base = Any
@@ -46,7 +45,7 @@ class RemoteSetting(Base):
         raise NotImplementedError
 
     @property
-    def service_name(self) -> ServiceName:
+    def vendor_name(self) -> VendorName:
         raise NotImplementedError
 
     @property
@@ -100,5 +99,7 @@ class RemoteSettings(BaseSettings):
             if not issubclass(field.default.__class__, RemoteSetting):
                 return None
 
-            if field.default.service_name == ServiceName.AWS:
+            if field.default.service_name == VendorName.AWS:
                 field.default.set_config(cls.aws_config)
+            elif field.default.service_name == VendorName.HASHICORP:
+                field.default.set_config(cls.hashicorp_config)
