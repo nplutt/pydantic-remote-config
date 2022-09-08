@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 setup(
     name="pydantic_remote_config",
     version="0.1.0",
-    description="Utility to fetch configuration values from remote source that is compatible with Pydantic models",
+    description="Utility to fetch configuration values from remote sources that integrates with Pydantic settings models",
     author="Nick Plutt",
     author_email="nplutt@gmail.com",
     license="MIT",
@@ -25,7 +25,6 @@ setup(
     install_requires=["Jinja2", "pydantic"],
     extras_require={
         "aws": ["boto3"],
-        "vault": ["hvac"],
         "test": ["pytest", "pytest-cov"],
         "dev": ["black", "isort", "tox", "mypy"],
     },
