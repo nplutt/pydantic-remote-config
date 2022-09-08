@@ -1,7 +1,7 @@
 from functools import lru_cache
 
 
-@lru_cache
+@lru_cache()
 def fetch_boto3_client(service_name: str, region_name: str):
     """
     Takes a service name & region and returns a boto3 client for
@@ -23,7 +23,7 @@ def fetch_boto3_client(service_name: str, region_name: str):
     return boto3.client(service_name, config=config)
 
 
-@lru_cache
+@lru_cache()
 def load_current_region_name() -> str:
     """
     Uses boto3 to load the current region set in the aws cli config

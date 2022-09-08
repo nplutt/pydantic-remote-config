@@ -99,7 +99,7 @@ class RemoteSettings(BaseSettings):
             if not issubclass(field.default.__class__, RemoteSetting):
                 return None
 
-            if field.default.service_name == VendorName.AWS:
+            if field.default.vendor_name == VendorName.AWS:
                 field.default.set_config(cls.aws_config)
-            elif field.default.service_name == VendorName.HASHICORP:
+            elif field.default.vendor_name == VendorName.HASHICORP:
                 field.default.set_config(cls.hashicorp_config)

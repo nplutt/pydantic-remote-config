@@ -9,6 +9,8 @@ class Settings(RemoteSettings):
 
     random: str = SSMParam("/foo/{{env}}/random")
     secret: SecretStr = SSMParam("/bar/{{env}}/secret")
+    second_secret: SecretStr = SSMParam("/bar/{{env}}/secret")
+    third_secret: SecretStr = SSMParam("/bar/{{env}}/secret")
     secrets_manager: str = SecretsManager("test-secret", "foo")
 
     class Config:

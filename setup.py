@@ -25,7 +25,8 @@ setup(
     install_requires=["Jinja2", "pydantic"],
     extras_require={
         "aws": ["boto3"],
+        "vault": ["hvac"],
         "test": ["pytest", "pytest-cov"],
-        "dev": ["black", "isort", "tox"],
+        "dev": ["black", "isort", "tox", "mypy"],
     },
 )
