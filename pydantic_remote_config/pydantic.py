@@ -1,13 +1,13 @@
 import json
 from typing import TYPE_CHECKING, Any, Dict, Optional
 
-from jinja2 import Template
 from pydantic import BaseSettings
 from pydantic.env_settings import env_file_sentinel
 from pydantic.fields import ModelField
 from pydantic.typing import StrPath
 
 from pydantic_remote_config.enum.VendorName import VendorName
+
 
 if TYPE_CHECKING:
     Base = Any
@@ -17,11 +17,11 @@ else:
 
 class RemoteSetting(Base):
     def __init__(self, path: str, key: str = None):
-        self.path = path
-        self.key = key
-        self.config = None
-        self._value = None
-        self.loaded = False
+        self.path: str = path
+        self.key: Optional[str] = key
+        self.config: Optional[dict] = None
+        self._value: Optional[Any] = None
+        self.loaded: bool = False
 
     def set_config(self, config: dict) -> None:
         self.config = config
@@ -29,14 +29,17 @@ class RemoteSetting(Base):
     def set_value(self, value: Any) -> None:
         try:
             value = json.loads(value)
-        except ValueError:
+        except (ValueError, TypeError):
             value = value
 
         self.loaded = True
         self._value = value
 
     def render_path(self, base_settings: Dict[str, Any]) -> None:
-        self.path = Template(self.path).render(**base_settings)
+        try:
+            self.path = self.path.format(**base_settings)
+        except KeyError:
+            pass
 
     def fetch(
         self,
@@ -50,7 +53,7 @@ class RemoteSetting(Base):
 
     @property
     def value(self) -> Any:
-        if self.key is not None:
+        if self.key is not None and self._value is not None:
             return self._value[self.key]
 
         return self._value

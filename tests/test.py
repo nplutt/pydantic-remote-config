@@ -7,10 +7,10 @@ from pydantic_remote_config.pydantic import RemoteSettings
 class Settings(RemoteSettings):
     env: str
 
-    random: str = SSMParam("/foo/{{env}}/random")
-    secret: SecretStr = SSMParam("/bar/{{env}}/secret")
-    second_secret: SecretStr = SSMParam("/bar/{{env}}/secret")
-    third_secret: SecretStr = SSMParam("/bar/{{env}}/secret")
+    random: str = SSMParam("/foo/{env}/random")
+    secret: SecretStr = SSMParam("/bar/{env}/secret")
+    second_secret: SecretStr = SSMParam("/bar/{env}/secret")
+    third_secret: SecretStr = SSMParam("/bar/{env}/secret")
     secrets_manager: str = SecretsManager("test-secret", "foo")
 
     class Config:
