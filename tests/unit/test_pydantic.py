@@ -1,5 +1,6 @@
 import pytest
 
+from pydantic_remote_config.config import AWSConfig
 from pydantic_remote_config.pydantic import RemoteSetting
 
 
@@ -10,8 +11,8 @@ def remote_setting():
 
 def test_set_config(remote_setting):
     assert remote_setting.config is None
-    remote_setting.set_config({"foo": "bar"})
-    assert remote_setting.config == {"foo": "bar"}
+    remote_setting.set_config(AWSConfig(region="us-east-1"))
+    assert remote_setting.config == {"region": "us-east-1"}
 
 
 @pytest.mark.parametrize(

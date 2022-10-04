@@ -1,11 +1,12 @@
 import json
 from typing import TYPE_CHECKING, Any, Dict, Optional
 
-from pydantic import BaseSettings
+from pydantic import BaseModel, BaseSettings
 from pydantic.env_settings import env_file_sentinel
 from pydantic.fields import ModelField
 from pydantic.typing import StrPath
 
+from pydantic_remote_config.config import AWSConfig
 from pydantic_remote_config.enum.VendorName import VendorName
 
 
@@ -23,8 +24,9 @@ class RemoteSetting(Base):
         self._value: Optional[Any] = None
         self.loaded: bool = False
 
-    def set_config(self, config: dict) -> None:
-        self.config = config
+    def set_config(self, config: Optional[BaseModel]) -> None:
+        if config:
+            self.config = config.dict()
 
     def set_value(self, value: Any) -> None:
         try:
@@ -92,8 +94,7 @@ class RemoteSettings(BaseSettings):
         return {**base_settings, **remote_settings}
 
     class Config(BaseSettings.Config):
-        aws_config = None
-        hashicorp_config = None
+        aws: Optional[AWSConfig] = None
 
         @classmethod
         def prepare_field(cls, field: ModelField) -> None:
@@ -103,6 +104,4 @@ class RemoteSettings(BaseSettings):
                 return None
 
             if field.default.vendor_name == VendorName.AWS:
-                field.default.set_config(cls.aws_config)
-            elif field.default.vendor_name == VendorName.HASHICORP:
-                field.default.set_config(cls.hashicorp_config)
+                field.default.set_config(cls.aws)

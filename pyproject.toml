@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "pydantic-remote-config"
+version = "0.1.0"
+description = "Utility to fetch configuration values from remote sources that integrates with Pydantic settings models"
+authors = ["nplutt <nplutt@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "pydantic_remote_config"}]
+homepage = "https://github.com/nplutt/pydantic-remote-config"
+repository = "https://github.com/nplutt/pydantic-remote-config"
+keywords=["pydantic", "remote", "config", "settings"]
+classifiers=[
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pydantic = "1.*"
+
+boto3 = { version = "1.*", optional = true }
+
+[tool.poetry.extras]
+aws = ["boto3"]
+
+[tool.poetry.group.dev.dependencies]
+black = "22.8.0"
+boto3 = "1.*"
+isort = "5.10.1"
+mypy = "0.971"
+pytest = "7.1.3"
+pytest-cov = "3.0.0"
+tox = "3.25.1"
+tox-asdf = "0.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

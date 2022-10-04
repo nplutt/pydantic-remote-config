@@ -1,21 +1,20 @@
 from pydantic import SecretStr
 
+from pydantic_remote_config import RemoteSettings
 from pydantic_remote_config.aws import SecretsManager, SSMParam
-from pydantic_remote_config.pydantic import RemoteSettings
+from pydantic_remote_config.config import AWSConfig
 
 
 class Settings(RemoteSettings):
     env: str
 
     random: str = SSMParam("/foo/{env}/random")
-    secret: SecretStr = SSMParam("/bar/{env}/secret")
-    second_secret: SecretStr = SSMParam("/bar/{env}/secret")
-    third_secret: SecretStr = SSMParam("/bar/{env}/secret")
-    secrets_manager: str = SecretsManager("test-secret", "foo")
+    secret_param: SecretStr = SSMParam("/bar/{env}/secret")
+    secret_map: dict = SecretsManager("test-secret")
+    secrets_value: str = SecretsManager("test-secret", key="foo")
 
     class Config:
-        env_file = ".env"
-        aws_config = {"region": "us-west-2"}
+        aws = AWSConfig(region="us-west-2")
 
 
 settings = Settings()
