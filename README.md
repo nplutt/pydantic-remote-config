@@ -33,7 +33,7 @@ print(settings)
 
 Strings can be templated using attributes that have been defined in the class and have
 corresponding environment variables set. This is useful in cases where a value is
-stored under a different folder depending on the environment.
+stored under a different path depending on the environment.
 
 In this example if the environment variable `ENV` is set to `dev`, the
 `/app-name/dev/db_password` value will be retrieved.
