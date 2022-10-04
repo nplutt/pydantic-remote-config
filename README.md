@@ -31,10 +31,12 @@ print(settings)
 
 ### Templating strings
 
-Strings can be templated using environment variables that have been defined in the class.
-This is useful in cases where a value is stored under a different folder depending on the
-environment.
-e.g. `/app-name/dev/db_password` in dev and `/app-name/prod/db_password` in prod
+Strings can be templated using attributes that have been defined in the class and have
+corresponding environment variables set. This is useful in cases where a value is
+stored under a different folder depending on the environment.
+
+In this example if the environment variable `ENV` is set to `dev`, the
+`/app-name/dev/db_password` value will be retrieved.
 
 ```python
 from pydantic_remote_config.aws import SSMParam
@@ -46,6 +48,8 @@ class Settings(RemoteSettings):
 
     db_password: str = SSMParam("/app-name/{env}/db_password")
 ```
+
+
 
 ### Accessing Nested Values
 
@@ -80,9 +84,9 @@ can be set.
 
 #### AWS
 
-The AWS config class supports specifying an aws region to run requests in. Note
-that this will override the default aws region configured on the machine or
-boto3.
+The AWS config class supports specifying an aws region to fetch configuration
+from. Note that this will override the default aws region configured on the
+machine or boto3.
 
 ```python
 from pydantic_remote_config.aws import SecretsManager, SSMParam
