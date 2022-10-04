@@ -4,6 +4,7 @@ from pydantic import SecretStr
 
 from pydantic_remote_config import RemoteSettings
 from pydantic_remote_config.aws import SecretsManager, SSMParam
+from pydantic_remote_config.config import AWSConfig
 
 
 class TestClass(RemoteSettings):
@@ -18,6 +19,9 @@ class TestClass(RemoteSettings):
     secret_2: int = SecretsManager("/foo/secret_2")
     secret_3: dict = SecretsManager("/foo/secret_3", "key")
     secret_4: SecretStr = SecretsManager("/foo/secret_4")
+
+    class Config:
+        aws = AWSConfig(region="us-west-2")
 
 
 def mock_get_parameter(Name, WithDecryption):
